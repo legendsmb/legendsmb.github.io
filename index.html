@@ -152,6 +152,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-对于 蒙德里安的梦想 一题的说明" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/30/%E5%AF%B9%E4%BA%8E%20%E8%92%99%E5%BE%B7%E9%87%8C%E5%AE%89%E7%9A%84%E6%A2%A6%E6%83%B3%20%E4%B8%80%E9%A2%98%E7%9A%84%E8%AF%B4%E6%98%8E/">对于 蒙德里安的梦想 一题的说明</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/30/%E5%AF%B9%E4%BA%8E%20%E8%92%99%E5%BE%B7%E9%87%8C%E5%AE%89%E7%9A%84%E6%A2%A6%E6%83%B3%20%E4%B8%80%E9%A2%98%E7%9A%84%E8%AF%B4%E6%98%8E/" class="archive-article-date">
+  	<time datetime="2020-04-30T14:03:52.067Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="对于-蒙德里安的梦想-一题的说明"><a href="#对于-蒙德里安的梦想-一题的说明" class="headerlink" title="对于 蒙德里安的梦想 一题的说明"></a>对于 <em><code>蒙德里安的梦想</code></em> 一题的说明</h1><p>==该题的核心在于，总方案数等于只放横着的小方块的合法的方案数。==</p>
+<p><img src="C:%5CUsers%5C29476%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200204131542552.png" alt="image-20200204131542552"></p>
+<p><img src="C:%5CUsers%5C29476%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200204131610105.png" alt="image-20200204131610105"></p>
+<p><code>f[i, j]</code>表示从第<code>i - 1</code>列横向伸出到第<code>i</code>列,状态是<code>j</code>的方案数。</p>
+<img src="C:\Users\29476\Desktop\TijieImage\image-2020020413511886.png" alt="image" style="zoom:67%;" />
+
+
+
+<p>在这里我们看一个具体的例子来感受一下：</p>
+<ul>
+<li><code>f[i-1,k]</code>，其中的<code>k</code>是如上所示的绿色方格的摆放方案，代表从<code>i-2</code>列伸向<code>i-1</code>列的摆放方案是00100。</li>
+<li><code>f[i,j]</code>，其中的<code>j</code>是如上所示的红色方格的摆放方案，代表从i-1列伸向i列的摆放方案是11001。</li>
+</ul>
+<p><code>f[i, j]</code>的<code>i</code>是从0开始的，0是第一列，<code>m - 1</code>是最后一列，所以<code>f[m, 0]</code>是指第<code>m - 1</code>列摆满（<code>m-1</code>列伸向第<code>m</code>列的方格数为0）的方案数。</p>
+<h4 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h4><p>状态表示：该题是二维状态，横行的最大状态数是11，竖行的最大状态数是2<sup>11</sup>。</p>
+<p>状态计算：最大状态数也是2<sup>11</sup>，从<code>i-1</code>列伸向<code>i</code>列每一行都有伸或者不伸两种选择。</p>
+<p>因此总的时间复杂度就是  11 * 2<sup>11</sup> * 2<sup>11</sup>。</p>
+<h4 id="代码及详细注释"><a href="#代码及详细注释" class="headerlink" title="代码及详细注释"></a>代码及详细注释</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">12</span>,M=<span class="number">1</span>&lt;&lt;N;</span><br><span class="line"><span class="keyword">int</span> n,m;<span class="comment">//宽，长</span></span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> f[N][M];<span class="comment">//DP矩阵，可能方案数会很大因此，使用long long 来保存里面的方案数</span></span><br><span class="line"><span class="keyword">bool</span> st[M];<span class="comment">//里面保存的是,i-1列到i列的状态j是否合乎要求（即没有连续的空白格）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m)!=EOF,n||m)&#123;<span class="comment">//，运算符最终将n||m的值作为条件判定的条件</span></span><br><span class="line">        <span class="comment">//预处理部分</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">1</span>&lt;&lt;n;i++)&#123;<span class="comment">//枚举状态</span></span><br><span class="line">            st[i]=<span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;<span class="comment">//状态中的二进制位</span></span><br><span class="line">                <span class="keyword">if</span>(i&gt;&gt;j&amp;<span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(cnt%<span class="number">2</span>)&#123;</span><br><span class="line">                        st[i]=<span class="literal">false</span>;</span><br><span class="line">                    </span><br><span class="line">                    &#125; </span><br><span class="line">                    cnt=<span class="number">0</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    cnt++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cnt%<span class="number">2</span>) <span class="comment">//最后一段二进制位0的个数是否为奇数</span></span><br><span class="line">                st[i]=<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">memset</span>(f,<span class="number">0</span>,<span class="keyword">sizeof</span> f);<span class="comment">//新的输入新的状态</span></span><br><span class="line">        <span class="comment">//动态规划部分</span></span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">1</span>;<span class="comment">//一个横行都不放也是一种状态</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;<span class="comment">//枚举列</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">1</span>&lt;&lt;n;j++)&#123;<span class="comment">//枚举i-2列到i-1列的方案数j</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;<span class="number">1</span>&lt;&lt;n;k++)&#123;<span class="comment">//枚举i-1列到第i列的方案数k</span></span><br><span class="line">                    <span class="keyword">if</span>(!(j&amp;k)&amp;&amp;st[j|k])&#123;<span class="comment">//如果添加k方案之后和j方案有重叠部分，或者添加k方案之后使得i-1列有奇数空白格则为不合法</span></span><br><span class="line">                        f[i][k]+=f[i<span class="number">-1</span>][j];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%ld\n"</span>,f[m][<span class="number">0</span>]);<span class="comment">//0~m-1列为需要填入方块的列，m列不应该有任何的m-1列的长方形伸过来，此时即最终所有的方案数</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/30/%E5%AF%B9%E4%BA%8E%20%E8%92%99%E5%BE%B7%E9%87%8C%E5%AE%89%E7%9A%84%E6%A2%A6%E6%83%B3%20%E4%B8%80%E9%A2%98%E7%9A%84%E8%AF%B4%E6%98%8E/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-我的第一篇博客文章" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
